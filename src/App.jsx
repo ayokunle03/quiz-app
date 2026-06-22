@@ -45,7 +45,9 @@ const goToNext = () => {
     <QuestionCard 
     showFeedback={showFeedback}
     onAnswer={handleAnswer}
-    data={questions[currentQuestion]}/>
+    data={questions[currentQuestion]}
+    selected={selectedAnswer}
+    />
 
     <div>
       {showFeedback && (
