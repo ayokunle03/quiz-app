@@ -42,20 +42,55 @@ const goToNext = () => {
       <p className="text-gray-400 mb-8">Test your knowledge</p>
     </div>
     <p>Score: {score}</p>
-    <QuestionCard 
+   
+   {!isFinished ? (
+    <>
+     <QuestionCard 
     showFeedback={showFeedback}
     onAnswer={handleAnswer}
     data={questions[currentQuestion]}
+    current={currentQuestion}
+    total={questions.length}
     selected={selectedAnswer}
     />
 
-    <div>
+    <div className="mt-6">
       {showFeedback && (
-        <button onClick={goToNext}> 
+        <button 
+        className="bg-gradient-to-r from-indigo-600 to-purple-600 py-3 px-6 rounded-lg font-medium shadow-lg cursor-pointer"
+        onClick={goToNext}> 
           {currentQuestion + 1 < questions.length ? "Continue" : "See Results"}
         </button>
       )}
     </div>
+    </>) :(
+      <div className="text-center">
+        <h2 className="text-3xl font-bold">Quiz Complete</h2>
+        <p className="text-xl">
+          You Scored<span className="font-bold"> {score} </span> out of {" "}
+          <span className="font-bold">{questions.length} 
+          </span>
+           {" "} and it is {" "}
+          {Math.round((score / questions.length) * 100)}%
+        </p>
+        <p className="mt-4 mb-6">
+          Thank you for participating in the quiz!
+        </p>
+        <button 
+          className="bg-gradient-to-r from-green-500 to-teal-500 py-3 px-6 rounded-lg font-medium shadow-lg cursor-pointer"
+          onClick={() => {
+            setCurrentQuestion(0);
+            setSelectedAnswer(null);
+            setScore(0);
+            setIsFinished(false);
+            setShowFeedback(false);
+          }}
+        >
+          Restart Quiz
+        </button>
+      </div>
+    )
+   }
 
   </div>
   )
